@@ -1,4 +1,3 @@
-import "./styles.css";
 import React, { useRef, useEffect, useState } from "react";
 import * as echarts from "echarts";
 import { chinaMapConfig } from "./config";
