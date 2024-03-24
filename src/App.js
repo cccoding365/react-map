@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import "./styles.css";
+import React, { useRef, useEffect } from "react";
+import * as echarts from "echarts";
+import { chinaMapConfig } from "./config";
+import { geoJson } from "./geojson";
+import { resData } from "./data";
 
-function App() {
+export default function App() {
+  const ref = useRef(null);
+  let mapInstance = null;
+
+  const renderMap = () => {
+    const renderedMapInstance = echarts.getInstanceByDom(ref.current);
+    if (renderedMapInstance) {
+      mapInstance = renderedMapInstance;
+    } else {
+      mapInstance = echarts.init(ref.current);
+    }
+    mapInstance.setOption(
+      chinaMapConfig({ data: resData.data, max: resData.max, min: 0 })
+    );
+  };
+
+  useEffect(() => {
+    echarts.registerMap("china", { geoJSON: geoJson });
+    renderMap();
+  });
+
+  useEffect(() => {
+    window.onresize = function () {
+      mapInstance.resize();
+    };
+    return () => {
+      mapInstance && mapInstance.dispose();
+    };
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div style={{ width: "100%", height: "99vh" }} ref={ref}></div>
     </div>
   );
 }
-
-export default App;
