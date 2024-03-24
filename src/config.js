@@ -1,9 +1,8 @@
-export const chinaMapConfig = (configData) => {
-    const { data, max } = configData;
-
+export const chinaMapConfig = ({ data, max }) => {
     return {
         title: {
             // 标题组件
+            show: false,
             text: "数据地图",
             // subtext: '数据来源于 xx平台',
             // sublink: 'http://www.census.gov/popest/data/datasets.html',
@@ -26,25 +25,16 @@ export const chinaMapConfig = (configData) => {
         },
         visualMap: {
             // 视觉映射组件
+            show: false,
             type: "continuous",
             // left: "left",
             min: 0,
             max: max,
             inRange: {
-                color: [
-                    "#e5f7ff",
-                    "#096dd9",
-                    "#fedeb5",
-                    "#f96a35",
-                    "#c3380e",
-                    "#942005",
-                    '#5b1305'
-                ]
+                color: ["#e5f7ff", "#096dd9", "#fedeb5", "#f96a35", "#c3380e", "#942005", '#5b1305']
             },
             text: [`最大值：${max}`, 0],
-            textStyle: {
-                color: "#000"
-            },
+            textStyle: { color: "#000" },
             calculable: true
         },
         toolbox: {
@@ -76,9 +66,9 @@ export const chinaMapConfig = (configData) => {
             type: "map",
             roam: true,
             map: "china",
-            zoom: 1.2, // 当前视角的缩放比例
+            zoom: 1, // 当前视角的缩放比例
             scaleLimit: {
-                max: 2,
+                max: 10,
                 min: 1 // 设置默认缩放效果
             },
             top: "10%" // 距离顶部距离
