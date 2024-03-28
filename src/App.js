@@ -25,7 +25,7 @@ export default function App() {
         mapInstance.setOption(
             chinaMapConfig({ data: mapdata, max: resData.max, min: 0 })
         );
-        mapInstance.on('click', async (e) => {
+        mapInstance.on('click', e => {
             const { adcode, childrenNum } = e.data;
             if (!childrenNum) {
                 alert('该地区没有下级地区');
