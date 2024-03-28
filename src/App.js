@@ -17,11 +17,16 @@ export default function App() {
         } else {
             mapInstance = echarts.init(ref.current);
         }
+
+        const mapdata = geoJSON.features.map((item) => {
+            return item.properties;
+        });
+
         mapInstance.setOption(
-            chinaMapConfig({ data: resData.data, max: resData.max, min: 0 })
+            chinaMapConfig({ data: mapdata, max: resData.max, min: 0 })
         );
         mapInstance.on('click', async (e) => {
-            const { adcode, childrenNum } = geoJSON.features.find(item => item.properties.name === e.name).properties;
+            const { adcode, childrenNum } = e.data;
             if (!childrenNum) {
                 alert('该地区没有下级地区');
             } else {
