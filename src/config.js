@@ -19,8 +19,7 @@ export const chinaMapConfig = ({ data, max }) => {
             formatter: function (params) {
                 let { data = {} } = params;
                 let { value = 0 } = data;
-                return `${params.name}<br/>
-                    数量: ${value}`;
+                return `${params.name}<br/>数量: ${value}`;
             }
         },
         visualMap: {
@@ -52,6 +51,7 @@ export const chinaMapConfig = ({ data, max }) => {
             source: data
         },
         series: {
+            data,
             // 地图,可以是数组，多个
             label: {
                 show: true, //显示省市名称
@@ -61,7 +61,21 @@ export const chinaMapConfig = ({ data, max }) => {
                 align: "left"
             },
             itemStyle: {
-                areaColor: "#fff" // 地图图形颜色
+                areaColor: "#71d5a1", // 地图图形颜色
+                borderColor: "#2979ff"
+            },
+            // 设置高亮状态下的多边形和标签样式
+            emphasis: {
+                // 设置区域样式
+                itemStyle: {
+                    areaColor: "#ffff99", // 黄色
+                    borderColor: "#f29100", // 描边颜色黄色
+                },
+                // 设置字体
+                label: {
+                    fontSize: 16, // 16px
+                    color: "#f29100", // 白色
+                },
             },
             type: "map",
             roam: true,
